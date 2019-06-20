@@ -1,7 +1,6 @@
-FROM python:2.7-slim-stretch
+FROM python:3.6.8-alpine3.9
 WORKDIR /
-COPY requirements.txt .
+COPY requirements.txt config.json noisy.py ./
 RUN pip install -r requirements.txt
-COPY . /
 ENTRYPOINT ["python", "noisy.py"]
 CMD ["--config", "config.json"]
