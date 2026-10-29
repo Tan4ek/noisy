@@ -4,7 +4,9 @@
 
 A simple python script that generates random HTTP/DNS traffic noise in the background while you go about your regular web browsing, to make your web traffic data less valuable for selling and for extra obscurity.
 
-Tested on MacOS High Sierra, Ubuntu 16.04 and Raspbian Stretch and is compatable with both Python 2.7 and 3.6
+Requires Python 3.13.18 or newer. Both Dockerfiles use a supported Python and
+Alpine release, including ARM images for Raspberry Pi. Python 2.7 and 3.6
+cannot install the patched TLS dependencies and are no longer supported.
 
 ## Getting Started
 
@@ -15,7 +17,7 @@ These instructions will get you a copy of the project up and running on your loc
 Install `requests` if you do not have it already installed, using `pip`:
 
 ```
-pip install requests
+python -m pip install -r requirements.txt
 ```
 
 ### Usage
@@ -81,6 +83,10 @@ DEBUG:urllib3.connectionpool:https://www.reddit.com:443 "GET /user/Saditon HTTP/
 1. Build the image
 
 `docker build -t noisy .`
+
+After a security update, rebuild with `docker build --pull --no-cache -t noisy .`
+and recreate the container. Updating the source does not update an existing
+container. Rebuild the Pi image with the same flags and `-f Dockerfile.pi`.
 
 **Or** if you'd like to build it for a **Raspberry Pi** (running Raspbian stretch):
 
